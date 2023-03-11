@@ -22,6 +22,10 @@ h3 {
     margin: 50px;
 }
 
+ul {
+    margin-bottom: 50px;
+}
+
 a {
     list-style: none;
     text-decoration: none;
