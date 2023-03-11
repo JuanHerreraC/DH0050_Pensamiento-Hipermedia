@@ -1,30 +1,74 @@
+
 function setup() {
-  let d = 70;
-  let p1 = d;
-  let p2 = p1 + d;
-  let p3 = p2 + d;
-  let p4 = p3 + d;
+  createCanvas(400, 400);
+  colorMode(HSB);
+  angleMode(DEGREES);
 
-  // Define el lienzo de 720 pixeles de ancho y 400 de alto
-  createCanvas(720, 400);
-  background(0);
-  noSmooth();
+  //vars for color wheel center point
+  let x = width / 2;
+  let y = height / 2 + 100;
+  colorWheel(x, y, 100); //slide 11
 
-  translate(140, 0);
+  noStroke();
+  pieChartPop(200, 100); //slide 12
+}
 
-  // Dibuja una caja gris
-  stroke(153);
-  line(p3, p3, p2, p3);
-  line(p2, p3, p2, p2);
-  line(p2, p2, p3, p2);
-  line(p3, p2, p3, p3);
+//**** slide 12 pie chart trig demo 
+function pieChartPop(x, y) {
+  let [total, child, young, adult, senior, elder] = [577, 103, 69,
+    122, 170, 113
+  ];
+  let startValue = 0;
+  let range = 0;
 
-  // Dibuja puntos blancos
-  stroke(255);
-  point(p1, p1);
-  point(p1, p3);
-  point(p2, p4);
-  point(p3, p1);
-  point(p4, p2);
-  point(p4, p4);
+  //child slice
+  range = child / total;
+  drawSlice("blue", x, y, 200, startValue, startValue + range);
+  startValue += range;
+  //young slice
+  range = young / total;
+  drawSlice("orange", x, y, 200, startValue, startValue + range);
+  startValue += range;
+  //adult slice
+  range = adult / total;
+  drawSlice("green", x, y, 200, startValue, startValue + range);
+  startValue += range;
+  //senior slice
+  range = senior / total;
+  drawSlice("tan", x, y, 200, startValue, startValue + range);
+  startValue += range;
+  //elder slice
+  range = elder / total;
+  drawSlice("pink", x, y, 200, startValue, startValue + range);
+  startValue += range;
+
+}
+
+/**
+ * drawSlice - draw colored arc based on angle percentages. slide 13
+ * Adjust angles so that 0% starts at top (actually -90).
+ * @param {color} fColor - fill color
+ * @param {number} x - center x
+ * @param {number} y - center y
+ * @param {number} d - diameter
+ * @param {float} percent1 - starting percentage
+ * @param {float} percent2 - ending percentage
+ */
+function drawSlice(fColor, x, y, d, percent1, percent2) {
+  fill(fColor);
+  arc(x, y, d, d, -90 + percent1 * 360, -90 + percent2 * 360);
+}
+
+//**** slide 11 trig demo 
+function colorWheel(x, y, rad) {
+  strokeWeight(10);
+  strokeCap(SQUARE);
+
+  //Iterate 360 degrees of lines, +10deg per turn
+  for (let a = 0; a < 360; a += 10) {
+    stroke(a, 150, 200); //hue based on a
+    //radius is 100, angle is a degrees
+    line(x, y, x + rad * cos(a),
+      y + rad * sin(a));
+  }
 }
