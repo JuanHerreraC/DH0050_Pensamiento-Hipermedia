@@ -1,74 +1,50 @@
+// Where is the car
+class Carro{
+  constructor(alto, ancho, color, name){
+    this.alto = alto;
+    this.ancho = ancho;
+    this.color = color;
+    this.name = name;
+  }
+}
+
 function setup() {
-    createCanvas(400, 400);
-    colorMode(HSB);
-    angleMode(DEGREES);
+  createCanvas(800, 400);
+  // Starts in the middle
+  y = height - height/2;
+  x = 0;
+  let miCarro = new Carro (10, 60, (blue), "MiLambo");
   
-    //vars for color wheel center point
-    let x = width / 2;
-    let y = height / 2 + 100;
-    colorWheel(x, y, 100); //slide 11
+  console.log("Canvas height is: " + this.height + "px");
+  console.log("Canvas width is: " + this.width + "px");
+  console.log("Width car is: " + miCarro.ancho + "px");
+  console.log("Height car is: " + miCarro.alto + "px");
+  console.log("Name car is: " + miCarro.name + "!");
+}
+
+function draw() {
+  background(0);  
+  display();
+  move();
+}
+
+function move(){
+  // Jiggling randomly
+  y = y + random(-2, 2);
   
-    noStroke();
-    pieChartPop(200, 100); //slide 12
+  if (x > width) {
+    // Reset 
+    x = 0;
+    y = height - height /2;
+  } else {
+    // Moving up at a constant speed
+    x = x + 4;
   }
-  
-  //**** slide 12 pie chart trig demo 
-  function pieChartPop(x, y) {
-    let [total, child, young, adult, senior, elder] = [577, 103, 69,
-      122, 170, 113
-    ];
-    let startValue = 0;
-    let range = 0;
-  
-    //child slice
-    range = child / total;
-    drawSlice("blue", x, y, 200, startValue, startValue + range);
-    startValue += range;
-    //young slice
-    range = young / total;
-    drawSlice("orange", x, y, 200, startValue, startValue + range);
-    startValue += range;
-    //adult slice
-    range = adult / total;
-    drawSlice("green", x, y, 200, startValue, startValue + range);
-    startValue += range;
-    //senior slice
-    range = senior / total;
-    drawSlice("tan", x, y, 200, startValue, startValue + range);
-    startValue += range;
-    //elder slice
-    range = elder / total;
-    drawSlice("pink", x, y, 200, startValue, startValue + range);
-    startValue += range;
-  
-  }
-  
-  /**
-   * drawSlice - draw colored arc based on angle percentages. slide 13
-   * Adjust angles so that 0% starts at top (actually -90).
-   * @param {color} fColor - fill color
-   * @param {number} x - center x
-   * @param {number} y - center y
-   * @param {number} d - diameter
-   * @param {float} percent1 - starting percentage
-   * @param {float} percent2 - ending percentage
-   */
-  function drawSlice(fColor, x, y, d, percent1, percent2) {
-    fill(fColor);
-    arc(x, y, d, d, -90 + percent1 * 360, -90 + percent2 * 360);
-  }
-  
-  //**** slide 11 trig demo 
-  function colorWheel(x, y, rad) {
-    strokeWeight(10);
-    strokeCap(SQUARE);
-  
-    //Iterate 360 degrees of lines, +10deg per turn
-    for (let a = 0; a < 360; a += 10) {
-      stroke(a, 150, 200); //hue based on a
-      //radius is 100, angle is a degrees
-      line(x, y, x + rad * cos(a),
-        y + rad * sin(a));
-    }
-  }
-  
+}
+
+function display(){
+  // Draw a car
+  stroke(255);
+  fill(69,245,195);
+  rect(x, y, 60, 10);
+}
